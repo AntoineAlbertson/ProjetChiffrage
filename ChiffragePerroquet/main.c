@@ -26,6 +26,7 @@ int main()
     printf("4. Quitter l'application\n");
 
     scanf("%c",&choix);
+    fflush(stdin);
 
     switch (choix){
 
