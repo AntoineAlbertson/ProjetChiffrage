@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 void coderSource()
 {
@@ -87,7 +88,7 @@ void coderSource()
 
         if (feof(sour))
         {
-           printf("\nFin de fichier\n");
+            printf("\nFin de fichier\n");
         }
 
         printf("peroqsize : %d \n", peroqSize);
@@ -101,13 +102,13 @@ void coderSource()
 
         printf("lettre codee : %c \n", lettreEcr);
 
-        fwrite(&lettreEcr, sizeof(lettreEcr), sizeof(char), dest);
+        if (!feof(sour))
+        {
+            fwrite(&lettreEcr, sizeof(lettreEcr), sizeof(char), dest);
+        }
 
         i++;
     }
-
-
-
 
 
     int retClose = fclose(sour);
@@ -131,5 +132,12 @@ void coderSource()
         return EXIT_FAILURE;
     }
 
+    int retRemove = remove("source.txt");
+    if ( retRemove != 0 )
+    {
+        printf( "Erreur lors de la suppression code: %d \n", retRemove );
+
+        return EXIT_FAILURE;
+    }
 
 }

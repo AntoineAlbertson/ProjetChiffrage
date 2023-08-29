@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 
-void decoderDest(){
+void decoderDest()
+{
 
 
     printf("Decodage de dest\n");
@@ -87,7 +89,7 @@ void decoderDest(){
 
         if (feof(dest))
         {
-           printf("\nFin de fichier\n");
+            printf("\nFin de fichier\n");
         }
 
         printf("peroqsize : %d \n", peroqSize);
@@ -101,23 +103,24 @@ void decoderDest(){
 
         printf("lettre codee : %c \n", lettreEcr);
 
-        fwrite(&lettreEcr, sizeof(lettreEcr), sizeof(char), sour2);
+        if (!feof(dest))
+        {
+            fwrite(&lettreEcr, sizeof(lettreEcr), sizeof(char), sour2);
+        }
 
         i++;
     }
 
 
 
-
-
-    int retClose = fclose(sour2);
+    int retClose = fclose(dest);
     if (retClose!= 0)
     {
         printf("Erreur Open !");
         return EXIT_FAILURE;
     }
 
-    retClose = fclose(dest);
+    retClose = fclose(sour2);
     if (retClose!= 0)
     {
         printf("Erreur Open !");
@@ -131,5 +134,11 @@ void decoderDest(){
         return EXIT_FAILURE;
     }
 
+    int retRemove = remove("dest.txt");
+    if ( retRemove != 0 )
+    {
+        printf( "Erreur lors de la suppression: %d \n", retRemove );
+        return EXIT_FAILURE;
+    }
 
 }
