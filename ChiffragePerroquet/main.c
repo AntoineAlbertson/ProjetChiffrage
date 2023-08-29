@@ -16,96 +16,58 @@ int main()
 
 
     //loop
-    while (!exit){
+    while (!exit)
+    {
 
-    //Ouverture du menu
-    printf("\nQue souhaitez vous faire ? Choisissez en tapant le chiffre correspondant:\n");
-    printf("1. Choix du perroquet\n");
-    printf("2. Codage du fichier source\n");
-    printf("3. Decodage du fichier dest\n");
-    printf("4. Quitter l'application\n");
+        //Ouverture du menu
+        printf("\nQue souhaitez vous faire ? Choisissez en tapant le chiffre correspondant:\n");
+        printf("1. Choix du perroquet\n");
+        printf("2. Codage du fichier source\n");
+        printf("3. Decodage du fichier dest\n");
+        printf("4. Quitter l'application\n");
 
-    scanf("%c",&choix);
-    fflush(stdin);
+        scanf("%c",&choix);
+        fflush(stdin);
 
-    switch (choix){
+        switch (choix)
+        {
 
-    case '1':
+        case '1':
 
-        creerPerroquet();
+            creerPerroquet();
 
-    break;
+            break;
 
-    case '2':
+        case '2':
 
-        coderSource();
+            coderSource();
 
-    break;
+            break;
 
-    case '3':
+        case '3':
 
-        decoderDest();
+            decoderDest();
 
-    break;
+            break;
 
-    case '4':
+        case '4':
 
-        exit = true;
+            exit = true;
 
-    break;
+            break;
 
-    default:
+        default:
 
-        printf("\nSaisi incorrecte, merci de reessayer.\n");
+            printf("\nSaisi incorrecte, merci de reessayer.\n");
 
-    break;
+            break;
 
 
+        }
     }
-}
 
-printf("Merci d'avoir utilise l'appli. Bonne journee!");
+    printf("Merci d'avoir utilise l'appli. Bonne journee!");
 
-
-
-
-
-
-    //Selection
-
-    //1. Choisir perroquet
-    //Demander
-
-    //créer/modifier le fichier
-
-
-
-
-
-    //2. Coder le texte
-    //check perroquet
-
-    //code
-
-    //créer codé
-
-    //suppression de source
-
-    //résultat
-
-
-
-
-
-    //3. décoder le texte
-
-    //Check perroquet
-
-    //décode
-
-    //Créer fichier
-
-    //supprimer le codé
 
 
     return 0;
