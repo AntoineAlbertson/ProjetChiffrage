@@ -49,12 +49,13 @@ void coderSource()
         printf("\nLa source n'a pas de carateres a coder");
         return;
     }
+    fseek(sour, 0, SEEK_SET);
 
     //Codage
 
     FILE *dest = NULL;
 
-    dest = fopen("dest.crt", "w+t");
+    dest = fopen("dest.txt", "w+t");
     if (dest == NULL)
     {
         printf("Erreur lors de creation!");
@@ -63,19 +64,44 @@ void coderSource()
 
     //printf("lg peroq : %d \n", strlen(peroq));
 
-    int i=0
-    char lettreEcr = '\0'
+    int i=0;
+    char lettreEcr = '\0';
+
+    int peroqSize = -1;
+
+    while(!feof(peroq))
+    {
+        fread(&lettreLuP, sizeof(lettreLuP), sizeof(char), peroq);
+        peroqSize++;
+    }
+
+
 
     while(!feof(sour))
     {
 
-        fread(&lettreLu, sizeof(lettreLu), sizeof(char), fp);
-        if (feof(fp))
+        fread(&lettreLuS, sizeof(lettreLuS), sizeof(char), sour);
+
+        printf("Valeur de i : %d \n", i);
+        printf("lettre de la source : %c \n", lettreLuS);
+
+        if (feof(sour))
         {
-           printf("\n\tFichier Fini !!!");
+           printf("\nFin de fichier\n");
         }
 
-        fwrite(&lettre, sizeof(lettre), sizeof(char), fp);
+        printf("peroqsize : %d \n", peroqSize);
+
+        fseek(peroq, i % peroqSize, SEEK_SET);
+        fread(&lettreLuP, sizeof(lettreLuP), sizeof(char), peroq);
+
+        printf("lettre du peroq : %c \n", lettreLuP);
+
+        lettreEcr = (lettreLuS - lettreLuP) % 128;
+
+        printf("lettre codee : %c \n", lettreEcr);
+
+        fwrite(&lettreEcr, sizeof(lettreEcr), sizeof(char), dest);
 
         i++;
     }
@@ -83,10 +109,22 @@ void coderSource()
 
 
 
-    //fwrite(peroq, sizeof(peroq), 1, fp);
 
+    int retClose = fclose(sour);
+    if (retClose!= 0)
+    {
+        printf("Erreur Open !");
+        return EXIT_FAILURE;
+    }
 
-    int retClose = fclose(fp);
+    retClose = fclose(dest);
+    if (retClose!= 0)
+    {
+        printf("Erreur Open !");
+        return EXIT_FAILURE;
+    }
+
+    retClose = fclose(peroq);
     if (retClose!= 0)
     {
         printf("Erreur Open !");
@@ -94,32 +132,4 @@ void coderSource()
     }
 
 
-
-
-
-
-
-
-
-    /*
-
-    while(!feof(fp))
-    {
-        printf("\nLettre Lu : %c", lettreLu);
-        fread(&lettreLu, sizeof(lettreLu), sizeof(char), fp);
-        if (feof(fp))
-        {
-           printf("\n\tFichier Fini !!!");
-        }
-    }
-
-    while(!feof(fp2))
-    {
-        printf("\nLettre Lu : %c", lettreLu);
-        fread(&lettreLu, sizeof(lettreLu), sizeof(char), fp);
-        if (feof(fp))
-        {
-           printf("\n\tFichier Fini !!!");
-        }
-    }*/
 }

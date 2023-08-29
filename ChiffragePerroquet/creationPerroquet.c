@@ -28,8 +28,10 @@ void creerPerroquet()
 
     printf("lg peroq : %d \n", strlen(peroq));
 
-    fwrite(peroq, sizeof(peroq), 1, fp);
-
+    for(int i=0; i<=strlen(peroq); i++)
+    {
+        fwrite(&peroq[i], sizeof(char), 1, fp);
+    }
 
     int retClose = fclose(fp);
     if (retClose!= 0)
